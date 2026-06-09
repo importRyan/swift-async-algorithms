@@ -3,7 +3,7 @@
 import PackageDescription
 import CompilerPluginSupport
 
-let AsyncAlgorithms_v1_0 = "AvailabilityMacro=AsyncAlgorithms 1.0:macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0"
+let AsyncAlgorithms_v1_0 = "AvailabilityMacro=AsyncAlgorithms 1.0:macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 9.0"
 #if compiler(>=6.0) && swift(>=6.0)  // 5.10 doesnt support visionOS availability
 let AsyncAlgorithms_v1_1 =
   "AvailabilityMacro=AsyncAlgorithms 1.1:macOS 15.0, iOS 18.0, tvOS 18.0, watchOS 11.0, visionOS 2.0"
@@ -34,6 +34,7 @@ let availabilityMacros: [SwiftSetting] = [
 
 let package = Package(
   name: "swift-async-algorithms",
+  platforms: [.iOS(.v18), .macOS(.v13), .tvOS(.v26), .visionOS(.v26), .watchOS(.v9)],
   products: [
     .library(name: "AsyncAlgorithms", targets: ["AsyncAlgorithms"]),
     .library(name: "AsyncStreaming", targets: ["AsyncStreaming"]),
@@ -163,8 +164,8 @@ let package = Package(
 if Context.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
   package.dependencies += [
     .package(
-      url: "https://github.com/apple/swift-collections.git",
-      from: "1.5.1",
+      url: "https://github.com/importRyan/swift-collections.git",
+      revision: "b166474a4e5053f8d382c95e97de8c237944fcba",
       traits: [.trait(name: "UnstableContainersPreview", condition: .when(traits: ["UnstableAsyncStreaming"]))]
     )
   ]
